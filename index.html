@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>All-in-One Tools: Habit Tracker, Resume Builder, Calculators & More</title>
+    <meta name="description" content="A free suite of online tools to boost your productivity. Includes a daily habit tracker with streaks, a simple Kanban project manager, a professional resume builder, and unique financial and fun calculators.">
+    <meta name="keywords" content="habit tracker, project manager, kanban board, resume builder, freelancer calculator, hourly rate calculator, dog years calculator, productivity tools, free online tools">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><path fill='none' stroke='%23fff' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' d='M25 55l20 15 30-35'/></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .tool-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        /* Print styles for Resume Builder */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #resume-preview, #resume-preview * {
+                visibility: visible;
+            }
+            #resume-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                     <a href="#" class="flex-shrink-0 flex items-center gap-2">
+                        <!-- Modern SVG Logo -->
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#4f46e5"/><path d="M9 16.5L14 21.5L23 12.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span class="text-xl font-bold text-slate-900">Productivity Hub</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#habit-tracker" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Habit Tracker</a>
+                        <a href="#project-manager" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Project Manager</a>
+                        <a href="#resume-builder" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Resume Builder</a>
+                        <a href="#calculators" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Calculators</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-button" class="bg-slate-100 inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Icon when menu is closed. -->
+                        <svg class="block h-6 w-6" id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <!-- Icon when menu is open. -->
+                        <svg class="hidden h-6 w-6" id="close-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#habit-tracker" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">Habit Tracker</a>
+                    <a href="#project-manager" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">Project Manager</a>
+                    <a href="#resume-builder" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">Resume Builder</a>
+                    <a href="#calculators" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">Calculators</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">Your All-in-One Productivity Toolkit</h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Track habits, manage projects, build your resume, and calculate anything. All in one place.</p>
+        </div>
+
+        <div class="space-y-20">
+
+            <!-- Habit Tracker Section -->
+            <section id="habit-tracker" class="scroll-mt-20">
+                <div class="tool-card p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Daily Habit Tracker</h2>
+                    <p class="text-slate-500 mb-6">Build good habits and break bad ones. Track your progress and build streaks.</p>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 mb-6">
+                        <input type="text" id="new-habit-input" placeholder="e.g., Read for 15 minutes" class="flex-grow w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                        <button id="add-habit-btn" class="w-full md:w-auto bg-indigo-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition">Add Habit</button>
+                    </div>
+
+                    <div id="habit-list" class="space-y-4">
+                        <!-- Habit items will be dynamically inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Manager Section -->
+            <section id="project-manager" class="scroll-mt-20">
+                <div class="tool-card p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Simple Project Manager</h2>
+                    <p class="text-slate-500 mb-6">Organize your tasks with a simple Kanban board. Drag and drop cards to track progress.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="kanban-board">
+                        <!-- To Do Column -->
+                        <div id="todo-col" class="bg-slate-100 rounded-lg p-4 kanban-column">
+                            <h3 class="font-bold text-lg mb-4 text-slate-700">To Do</h3>
+                            <div class="min-h-[200px] space-y-3" data-status="todo"></div>
+                            <input type="text" class="w-full mt-4 p-2 border border-slate-300 rounded-md" placeholder="+ Add a task" onkeypress="handleTaskInput(event, 'todo')">
+                        </div>
+                        <!-- In Progress Column -->
+                        <div id="inprogress-col" class="bg-slate-100 rounded-lg p-4 kanban-column">
+                            <h3 class="font-bold text-lg mb-4 text-slate-700">In Progress</h3>
+                            <div class="min-h-[200px] space-y-3" data-status="inprogress"></div>
+                        </div>
+                        <!-- Done Column -->
+                        <div id="done-col" class="bg-slate-100 rounded-lg p-4 kanban-column">
+                            <h3 class="font-bold text-lg mb-4 text-slate-700">Done</h3>
+                             <div class="min-h-[200px] space-y-3" data-status="done"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resume Builder Section -->
+            <section id="resume-builder" class="scroll-mt-20">
+                <div class="tool-card p-6 md:p-8">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Professional Resume Builder</h2>
+                            <p class="text-slate-500">Fill in the fields to generate a clean, modern resume. Print or save as PDF.</p>
+                        </div>
+                        <button id="print-resume-btn" class="bg-green-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition">Print / Save PDF</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Resume Form -->
+                        <div id="resume-form" class="space-y-6">
+                            <div><h3 class="text-xl font-semibold border-b pb-2 mb-4">Personal Details</h3>
+                                <input type="text" placeholder="Full Name" id="resume-name" class="w-full p-2 border rounded-md mb-2">
+                                <input type="text" placeholder="Job Title (e.g., Web Developer)" id="resume-title" class="w-full p-2 border rounded-md mb-2">
+                                <input type="email" placeholder="Email" id="resume-email" class="w-full p-2 border rounded-md mb-2">
+                                <input type="tel" placeholder="Phone Number" id="resume-phone" class="w-full p-2 border rounded-md mb-2">
+                                <textarea placeholder="Professional Summary" id="resume-summary" class="w-full p-2 border rounded-md"></textarea>
+                            </div>
+                            <div><h3 class="text-xl font-semibold border-b pb-2 mb-4">Experience</h3>
+                                <div id="experience-fields"></div>
+                                <button id="add-exp-btn" class="mt-2 text-sm text-indigo-600 font-semibold hover:underline">+ Add Experience</button>
+                            </div>
+                            <div><h3 class="text-xl font-semibold border-b pb-2 mb-4">Education</h3>
+                                <div id="education-fields"></div>
+                                <button id="add-edu-btn" class="mt-2 text-sm text-indigo-600 font-semibold hover:underline">+ Add Education</button>
+                            </div>
+                             <div><h3 class="text-xl font-semibold border-b pb-2 mb-4">Skills</h3>
+                                 <input type="text" placeholder="e.g., JavaScript, React, Project Management" id="resume-skills" class="w-full p-2 border rounded-md">
+                                 <p class="text-xs text-slate-500 mt-1">Separate skills with a comma.</p>
+                            </div>
+                        </div>
+
+                        <!-- Resume Preview -->
+                        <div id="resume-preview-container" class="bg-slate-50 p-6 rounded-lg border">
+                            <div id="resume-preview" class="bg-white p-8 shadow-lg">
+                                <!-- Name and Title -->
+                                <div class="text-center border-b pb-4">
+                                    <h1 id="preview-name" class="text-3xl font-bold">Your Name</h1>
+                                    <p id="preview-title" class="text-lg text-indigo-600">Your Title</p>
+                                </div>
+                                <!-- Contact & Summary -->
+                                <div class="mt-4">
+                                    <div id="preview-contact" class="text-center text-sm text-slate-600 mb-4">
+                                        <span id="preview-email">email@example.com</span> | <span id="preview-phone">123-456-7890</span>
+                                    </div>
+                                    <p id="preview-summary" class="text-sm">Your professional summary will appear here.</p>
+                                </div>
+                                <!-- Sections -->
+                                <div class="mt-6">
+                                    <div id="preview-experience-section"></div>
+                                    <div id="preview-education-section"></div>
+                                    <div id="preview-skills-section"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calculators Section -->
+            <section id="calculators" class="scroll-mt-20">
+                <div class="tool-card p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Calculators & Converters</h2>
+                    <p class="text-slate-500 mb-6">Useful tools for finance, fun, and everything in between.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Freelancer Rate Calculator -->
+                        <div class="bg-slate-50 p-6 rounded-lg border">
+                            <h3 class="text-xl font-semibold mb-4">Freelancer's Hourly Rate Calculator</h3>
+                            <div class="space-y-4">
+                                <div><label class="block text-sm font-medium text-slate-700">Desired Annual Salary ($)</label><input type="number" id="calc-salary" placeholder="60000" class="w-full mt-1 p-2 border rounded-md"></div>
+                                <div><label class="block text-sm font-medium text-slate-700">Monthly Business Expenses ($)</label><input type="number" id="calc-expenses" placeholder="500" class="w-full mt-1 p-2 border rounded-md"></div>
+                                <div><label class="block text-sm font-medium text-slate-700">Billable Hours per Week</label><input type="number" id="calc-hours" placeholder="30" class="w-full mt-1 p-2 border rounded-md"></div>
+                                <div><label class="block text-sm font-medium text-slate-700">Vacation Weeks per Year</label><input type="number" id="calc-vacation" placeholder="4" class="w-full mt-1 p-2 border rounded-md"></div>
+                                <button id="calc-rate-btn" class="w-full bg-indigo-600 text-white font-semibold py-2 rounded-md hover:bg-indigo-700 transition">Calculate Rate</button>
+                                <div class="text-center mt-4">
+                                    <p class="text-slate-600">Your Recommended Hourly Rate:</p>
+                                    <p id="rate-result" class="text-3xl font-bold text-indigo-600">$0.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Dog Years Calculator -->
+                         <div class="bg-slate-50 p-6 rounded-lg border">
+                            <h3 class="text-xl font-semibold mb-4">Dog Years to Human Years</h3>
+                            <div class="space-y-4">
+                                <div><label class="block text-sm font-medium text-slate-700">Dog's Age (in years)</label><input type="number" id="dog-age" placeholder="5" class="w-full mt-1 p-2 border rounded-md"></div>
+                                <button id="convert-dog-age-btn" class="w-full bg-indigo-600 text-white font-semibold py-2 rounded-md hover:bg-indigo-700 transition">Convert</button>
+                                <div class="text-center mt-4">
+                                    <p class="text-slate-600">Equivalent Human Age:</p>
+                                    <p id="human-age-result" class="text-3xl font-bold text-indigo-600">~ 0 years</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-20">
+        <div class="container mx-auto text-center py-6 px-4">
+            <p>&copy; 2025 Productivity Hub. A collection of free tools to make your life easier.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- MOBILE MENU ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            hamburgerIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // --- HABIT TRACKER ---
+        const newHabitInput = document.getElementById('new-habit-input');
+        const addHabitBtn = document.getElementById('add-habit-btn');
+        const habitList = document.getElementById('habit-list');
+        let habits = JSON.parse(localStorage.getItem('habits')) || [];
+
+        const saveHabits = () => {
+            localStorage.setItem('habits', JSON.stringify(habits));
+        };
+
+        const renderHabits = () => {
+            habitList.innerHTML = '';
+            if (habits.length === 0) {
+                habitList.innerHTML = `<p class="text-slate-500 text-center">No habits added yet. Let's get started!</p>`;
+                return;
+            }
+            habits.forEach((habit, index) => {
+                const today = new Date().toISOString().split('T')[0];
+                const doneToday = habit.completed.includes(today);
+
+                const habitEl = document.createElement('div');
+                habitEl.className = 'flex items-center justify-between p-4 bg-slate-50 border rounded-lg';
+                habitEl.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <button class="toggle-habit text-2xl ${doneToday ? 'text-green-500' : 'text-slate-300 hover:text-green-400'}" data-index="${index}">
+                            ${doneToday ? '✓' : '○'}
+                        </button>
+                        <div>
+                            <p class="font-semibold ${doneToday ? 'line-through text-slate-400' : ''}">${habit.name}</p>
+                            <p class="text-sm text-indigo-600">Streak: ${habit.streak} days</p>
+                        </div>
+                    </div>
+                    <button class="delete-habit text-red-500 hover:text-red-700 font-bold px-2" data-index="${index}">✕</button>
+                `;
+                habitList.appendChild(habitEl);
+            });
+        };
+
+        const addHabit = () => {
+            const name = newHabitInput.value.trim();
+            if (name) {
+                habits.push({ name, streak: 0, completed: [], lastCompleted: null });
+                newHabitInput.value = '';
+                saveHabits();
+                renderHabits();
+            }
+        };
+
+        const toggleHabit = (index) => {
+            const habit = habits[index];
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+            
+            if (habit.completed.includes(today)) {
+                // Untoggle
+                habit.completed = habit.completed.filter(date => date !== today);
+                if (habit.lastCompleted === today) {
+                    habit.streak--;
+                    habit.lastCompleted = habit.completed.length > 0 ? habit.completed[habit.completed.length-1] : null;
+                }
+            } else {
+                // Toggle
+                habit.completed.push(today);
+                if(habit.lastCompleted === yesterday) {
+                    habit.streak++;
+                } else if (habit.lastCompleted !== today) {
+                    habit.streak = 1;
+                }
+                habit.lastCompleted = today;
+            }
+            saveHabits();
+            renderHabits();
+        };
+
+        const deleteHabit = (index) => {
+            habits.splice(index, 1);
+            saveHabits();
+            renderHabits();
+        };
+
+        addHabitBtn.addEventListener('click', addHabit);
+        newHabitInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addHabit();
+        });
+
+        habitList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('toggle-habit')) {
+                toggleHabit(e.target.dataset.index);
+            }
+            if (e.target.classList.contains('delete-habit')) {
+                deleteHabit(e.target.dataset.index);
+            }
+        });
+
+        renderHabits();
+
+
+        // --- PROJECT MANAGER (KANBAN) ---
+        let tasks = JSON.parse(localStorage.getItem('kanbanTasks')) || [];
+        let draggedItem = null;
+
+        const saveTasks = () => {
+            localStorage.setItem('kanbanTasks', JSON.stringify(tasks));
+        };
+        
+        const renderTasks = () => {
+            document.querySelectorAll('.kanban-column div[data-status]').forEach(col => col.innerHTML = '');
+            tasks.forEach(task => {
+                const taskEl = document.createElement('div');
+                taskEl.className = 'p-3 bg-white rounded-md shadow cursor-grab active:cursor-grabbing';
+                taskEl.textContent = task.text;
+                taskEl.draggable = true;
+                taskEl.dataset.id = task.id;
+
+                taskEl.addEventListener('dragstart', () => {
+                    draggedItem = task;
+                    setTimeout(() => taskEl.style.display = 'none', 0);
+                });
+                
+                taskEl.addEventListener('dragend', () => {
+                    setTimeout(() => taskEl.style.display = 'block', 0);
+                    draggedItem = null;
+                });
+
+                document.querySelector(`div[data-status="${task.status}"]`).appendChild(taskEl);
+            });
+        };
+
+        window.handleTaskInput = (event, status) => {
+            if (event.key === 'Enter' && event.target.value.trim() !== '') {
+                tasks.push({ id: Date.now(), text: event.target.value.trim(), status });
+                event.target.value = '';
+                saveTasks();
+                renderTasks();
+            }
+        };
+
+        document.querySelectorAll('.kanban-column div[data-status]').forEach(column => {
+            column.addEventListener('dragover', e => {
+                e.preventDefault();
+                column.closest('.kanban-column').classList.add('bg-slate-200');
+            });
+            column.addEventListener('dragleave', e => {
+                 column.closest('.kanban-column').classList.remove('bg-slate-200');
+            });
+            column.addEventListener('drop', e => {
+                e.preventDefault();
+                if (draggedItem) {
+                    draggedItem.status = column.dataset.status;
+                    saveTasks();
+                    renderTasks();
+                }
+                column.closest('.kanban-column').classList.remove('bg-slate-200');
+            });
+        });
+
+        renderTasks();
+        
+        // --- RESUME BUILDER ---
+        const resumeForm = document.getElementById('resume-form');
+        const addExpBtn = document.getElementById('add-exp-btn');
+        const addEduBtn = document.getElementById('add-edu-btn');
+        const printResumeBtn = document.getElementById('print-resume-btn');
+        let expCount = 0;
+        let eduCount = 0;
+
+        const updateResumePreview = () => {
+            // Personal Info
+            document.getElementById('preview-name').textContent = document.getElementById('resume-name').value || 'Your Name';
+            document.getElementById('preview-title').textContent = document.getElementById('resume-title').value || 'Your Title';
+            document.getElementById('preview-email').textContent = document.getElementById('resume-email').value || 'email@example.com';
+            document.getElementById('preview-phone').textContent = document.getElementById('resume-phone').value || '123-456-7890';
+            document.getElementById('preview-summary').textContent = document.getElementById('resume-summary').value || 'Your professional summary will appear here.';
+
+            // Experience
+            const expSection = document.getElementById('preview-experience-section');
+            expSection.innerHTML = '<h2 class="text-xl font-bold border-b-2 border-slate-300 pb-1 mb-2">Experience</h2>';
+            document.querySelectorAll('.experience-entry').forEach(entry => {
+                const title = entry.querySelector('input[placeholder="Job Title"]').value;
+                const company = entry.querySelector('input[placeholder="Company"]').value;
+                const dates = entry.querySelector('input[placeholder="Dates (e.g., Jan 2020 - Present)"]').value;
+                const desc = entry.querySelector('textarea').value;
+                if(title) {
+                    expSection.innerHTML += `
+                        <div class="mb-3">
+                            <h3 class="font-semibold">${title}</h3>
+                            <p class="text-sm text-slate-600">${company} | ${dates}</p>
+                            <p class="text-sm mt-1">${desc}</p>
+                        </div>`;
+                }
+            });
+            
+            // Education
+            const eduSection = document.getElementById('preview-education-section');
+            eduSection.innerHTML = '<h2 class="text-xl font-bold border-b-2 border-slate-300 pb-1 mb-2 mt-4">Education</h2>';
+            document.querySelectorAll('.education-entry').forEach(entry => {
+                const degree = entry.querySelector('input[placeholder="Degree"]').value;
+                const school = entry.querySelector('input[placeholder="School/University"]').value;
+                const dates = entry.querySelector('input[placeholder="Dates (e.g., Aug 2016 - May 2020)"]').value;
+                if(degree) {
+                     eduSection.innerHTML += `
+                        <div class="mb-3">
+                            <h3 class="font-semibold">${degree}</h3>
+                            <p class="text-sm text-slate-600">${school} | ${dates}</p>
+                        </div>`;
+                }
+            });
+
+            // Skills
+            const skillsSection = document.getElementById('preview-skills-section');
+            const skillsInput = document.getElementById('resume-skills').value;
+            if (skillsInput) {
+                const skillsList = skillsInput.split(',').map(skill => `<span class="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-semibold text-slate-700 mr-2 mb-2">${skill.trim()}</span>`).join('');
+                skillsSection.innerHTML = `<h2 class="text-xl font-bold border-b-2 border-slate-300 pb-1 mb-2 mt-4">Skills</h2><div>${skillsList}</div>`;
+            } else {
+                 skillsSection.innerHTML = '';
+            }
+        };
+        
+        const addExperienceField = () => {
+            expCount++;
+            const div = document.createElement('div');
+            div.className = 'experience-entry border p-3 rounded-md mb-2';
+            div.innerHTML = `
+                <input type="text" placeholder="Job Title" class="w-full p-2 border rounded-md mb-2">
+                <input type="text" placeholder="Company" class="w-full p-2 border rounded-md mb-2">
+                <input type="text" placeholder="Dates (e.g., Jan 2020 - Present)" class="w-full p-2 border rounded-md mb-2">
+                <textarea placeholder="Description of responsibilities" class="w-full p-2 border rounded-md"></textarea>
+            `;
+            document.getElementById('experience-fields').appendChild(div);
+        };
+
+        const addEducationField = () => {
+            eduCount++;
+            const div = document.createElement('div');
+            div.className = 'education-entry border p-3 rounded-md mb-2';
+            div.innerHTML = `
+                <input type="text" placeholder="Degree" class="w-full p-2 border rounded-md mb-2">
+                <input type="text" placeholder="School/University" class="w-full p-2 border rounded-md mb-2">
+                <input type="text" placeholder="Dates (e.g., Aug 2016 - May 2020)" class="w-full p-2 border rounded-md mb-2">
+            `;
+            document.getElementById('education-fields').appendChild(div);
+        };
+
+        resumeForm.addEventListener('input', updateResumePreview);
+        addExpBtn.addEventListener('click', addExperienceField);
+        addEduBtn.addEventListener('click', addEducationField);
+        printResumeBtn.addEventListener('click', () => window.print());
+        
+        // Add initial fields and update preview
+        addExperienceField();
+        addEducationField();
+        updateResumePreview();
+
+        // --- CALCULATORS ---
+        // Freelancer Rate
+        document.getElementById('calc-rate-btn').addEventListener('click', () => {
+            const salary = parseFloat(document.getElementById('calc-salary').value) || 0;
+            const expenses = parseFloat(document.getElementById('calc-expenses').value) || 0;
+            const hours = parseFloat(document.getElementById('calc-hours').value) || 0;
+            const vacation = parseFloat(document.getElementById('calc-vacation').value) || 0;
+
+            if (hours === 0) {
+                document.getElementById('rate-result').textContent = '$0.00';
+                return;
+            }
+
+            const totalExpenses = salary + (expenses * 12);
+            const totalHours = hours * (52 - vacation);
+            const rate = totalHours > 0 ? totalExpenses / totalHours : 0;
+
+            document.getElementById('rate-result').textContent = `$${rate.toFixed(2)}`;
+        });
+
+        // Dog Years
+        document.getElementById('convert-dog-age-btn').addEventListener('click', () => {
+            const dogAge = parseInt(document.getElementById('dog-age').value) || 0;
+            let humanAge = 0;
+            if (dogAge === 1) {
+                humanAge = 15;
+            } else if (dogAge === 2) {
+                humanAge = 24;
+            } else if (dogAge > 2) {
+                humanAge = 24 + (dogAge - 2) * 5;
+            }
+            document.getElementById('human-age-result').textContent = `~ ${humanAge} years`;
+        });
+
+    });
+    </script>
+</body>
+</html>
+
+
