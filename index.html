@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO Meta Tags -->
     <title>All-in-One Tools: Habit Tracker, Resume Builder, Calculators & More</title>
     <meta name="description" content="A free suite of online tools to boost your productivity. Includes a daily habit tracker with streaks, a simple Kanban project manager, a professional resume builder, and unique financial and fun calculators.">
     <meta name="keywords" content="habit tracker, project manager, kanban board, resume builder, freelancer calculator, hourly rate calculator, dog years calculator, productivity tools, free online tools">
     
-    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><path fill='none' stroke='%23fff' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' d='M25 55l20 15 30-35'/></svg>">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-09N4B69D59"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
     
-    <!-- Custom Styles -->
+      gtag('config', 'G-09N4B69D59');
+    </script>
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -57,16 +61,14 @@
 </head>
 <body class="text-slate-800">
 
-    <!-- Header & Navigation -->
     <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                     <a href="#" class="flex-shrink-0 flex items-center gap-2">
-                        <!-- Modern SVG Logo -->
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#4f46e5"/><path d="M9 16.5L14 21.5L23 12.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        <span class="text-xl font-bold text-slate-900">Productivity Hub</span>
-                    </a>
+                        <a href="#" class="flex-shrink-0 flex items-center gap-2">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="8" fill="#4f46e5"/><path d="M9 16.5L14 21.5L23 12.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span class="text-xl font-bold text-slate-900">Productivity Hub</span>
+                        </a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
@@ -76,15 +78,12 @@
                         <a href="#calculators" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Calculators</a>
                     </div>
                 </div>
-                <!-- Mobile menu button -->
                 <div class="-mr-2 flex md:hidden">
                     <button type="button" id="mobile-menu-button" class="bg-slate-100 inline-flex items-center justify-center p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
-                        <!-- Icon when menu is closed. -->
                         <svg class="block h-6 w-6" id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
-                        <!-- Icon when menu is open. -->
                         <svg class="hidden h-6 w-6" id="close-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -92,7 +91,6 @@
                 </div>
             </div>
 
-            <!-- Mobile menu, show/hide based on menu state. -->
             <div class="md:hidden hidden" id="mobile-menu">
                 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     <a href="#habit-tracker" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 block px-3 py-2 rounded-md text-base font-medium">Habit Tracker</a>
@@ -112,7 +110,6 @@
 
         <div class="space-y-20">
 
-            <!-- Habit Tracker Section -->
             <section id="habit-tracker" class="scroll-mt-20">
                 <div class="tool-card p-6 md:p-8">
                     <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Daily Habit Tracker</h2>
@@ -124,30 +121,25 @@
                     </div>
 
                     <div id="habit-list" class="space-y-4">
-                        <!-- Habit items will be dynamically inserted here -->
-                    </div>
+                        </div>
                 </div>
             </section>
 
-            <!-- Project Manager Section -->
             <section id="project-manager" class="scroll-mt-20">
                 <div class="tool-card p-6 md:p-8">
                     <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Simple Project Manager</h2>
                     <p class="text-slate-500 mb-6">Organize your tasks with a simple Kanban board. Drag and drop cards to track progress.</p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="kanban-board">
-                        <!-- To Do Column -->
                         <div id="todo-col" class="bg-slate-100 rounded-lg p-4 kanban-column">
                             <h3 class="font-bold text-lg mb-4 text-slate-700">To Do</h3>
                             <div class="min-h-[200px] space-y-3" data-status="todo"></div>
                             <input type="text" class="w-full mt-4 p-2 border border-slate-300 rounded-md" placeholder="+ Add a task" onkeypress="handleTaskInput(event, 'todo')">
                         </div>
-                        <!-- In Progress Column -->
                         <div id="inprogress-col" class="bg-slate-100 rounded-lg p-4 kanban-column">
                             <h3 class="font-bold text-lg mb-4 text-slate-700">In Progress</h3>
                             <div class="min-h-[200px] space-y-3" data-status="inprogress"></div>
                         </div>
-                        <!-- Done Column -->
                         <div id="done-col" class="bg-slate-100 rounded-lg p-4 kanban-column">
                             <h3 class="font-bold text-lg mb-4 text-slate-700">Done</h3>
                              <div class="min-h-[200px] space-y-3" data-status="done"></div>
@@ -156,7 +148,6 @@
                 </div>
             </section>
 
-            <!-- Resume Builder Section -->
             <section id="resume-builder" class="scroll-mt-20">
                 <div class="tool-card p-6 md:p-8">
                     <div class="flex justify-between items-start mb-6">
@@ -168,7 +159,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <!-- Resume Form -->
                         <div id="resume-form" class="space-y-6">
                             <div><h3 class="text-xl font-semibold border-b pb-2 mb-4">Personal Details</h3>
                                 <input type="text" placeholder="Full Name" id="resume-name" class="w-full p-2 border rounded-md mb-2">
@@ -191,22 +181,18 @@
                             </div>
                         </div>
 
-                        <!-- Resume Preview -->
                         <div id="resume-preview-container" class="bg-slate-50 p-6 rounded-lg border">
                             <div id="resume-preview" class="bg-white p-8 shadow-lg">
-                                <!-- Name and Title -->
                                 <div class="text-center border-b pb-4">
                                     <h1 id="preview-name" class="text-3xl font-bold">Your Name</h1>
                                     <p id="preview-title" class="text-lg text-indigo-600">Your Title</p>
                                 </div>
-                                <!-- Contact & Summary -->
                                 <div class="mt-4">
                                     <div id="preview-contact" class="text-center text-sm text-slate-600 mb-4">
                                         <span id="preview-email">email@example.com</span> | <span id="preview-phone">123-456-7890</span>
                                     </div>
                                     <p id="preview-summary" class="text-sm">Your professional summary will appear here.</p>
                                 </div>
-                                <!-- Sections -->
                                 <div class="mt-6">
                                     <div id="preview-experience-section"></div>
                                     <div id="preview-education-section"></div>
@@ -218,14 +204,12 @@
                 </div>
             </section>
 
-            <!-- Calculators Section -->
             <section id="calculators" class="scroll-mt-20">
                 <div class="tool-card p-6 md:p-8">
                     <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Calculators & Converters</h2>
                     <p class="text-slate-500 mb-6">Useful tools for finance, fun, and everything in between.</p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Freelancer Rate Calculator -->
                         <div class="bg-slate-50 p-6 rounded-lg border">
                             <h3 class="text-xl font-semibold mb-4">Freelancer's Hourly Rate Calculator</h3>
                             <div class="space-y-4">
@@ -240,8 +224,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Dog Years Calculator -->
-                         <div class="bg-slate-50 p-6 rounded-lg border">
+                        <div class="bg-slate-50 p-6 rounded-lg border">
                             <h3 class="text-xl font-semibold mb-4">Dog Years to Human Years</h3>
                             <div class="space-y-4">
                                 <div><label class="block text-sm font-medium text-slate-700">Dog's Age (in years)</label><input type="number" id="dog-age" placeholder="5" class="w-full mt-1 p-2 border rounded-md"></div>
@@ -583,5 +566,4 @@
     </script>
 </body>
 </html>
-
 
